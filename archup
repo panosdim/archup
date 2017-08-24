@@ -1,0 +1,8 @@
+#!/bin/bash
+
+upfile=/etc/archup
+checkupdates > $upfile
+if [ -s $upfile ]; then
+  echo -e "Following packages need update\n$(cat $upfile)" > $upfile
+fi
+

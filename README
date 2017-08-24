@@ -1,0 +1,103 @@
+
+   ###    ########   ######  ##     ## ##     ## ########  
+  ## ##   ##     ## ##    ## ##     ## ##     ## ##     ## 
+ ##   ##  ##     ## ##       ##     ## ##     ## ##     ## 
+##     ## ########  ##       ######### ##     ## ########  
+######### ##   ##   ##       ##     ## ##     ## ##        
+##     ## ##    ##  ##    ## ##     ## ##     ## ##        
+##     ## ##     ##  ######  ##     ##  #######  ##        
+
+README
+------
+This utility let you know for package updates when you log in. In order to
+achieve that, it is using the checkup script that comes installed with pacman
+package. It writes the result of checkup script to /etc/archup file. When the
+user logs in the system there is a setting in .bash_profile to check if this
+file exists and is not zero. Then it prints the contents of the file in stdout.
+The user then must update the system and delete the /etc/archup file, otherwise
+he must wait until the next trigger of archup utility (default is every 1 hour)
+in order the /etc/archup file to be cleared. So it is recommended to use the
+provided alias (see INSTALLATION section) in order to update the system. This
+utility is NOT updating the system, it only provides a notification. It is up to
+the user to update the system.
+
+REQUIREMENTS
+------------
+In order for this utility to work you need and arch linux with systemd, bash and
+pacman installed.
+
+INSTALL
+-------
+In order to install this utility you must be a root or have root priviledges.
+
+1. Copy archup bash script in /usr/bin directory:
+    # cp archup /usr/bin
+
+2. Copy archup.service and archup.timer files in /usr/lib/systemd/system folder:
+    # cp archup.service /usr/lib/systemd/system
+    # cp archup.timer /usr/lib/systemd/system
+
+3. Enable and activate the archup service:
+    # systemctl start archup.timer
+    # systemctl enable archup.timer
+
+4. Put the following in your .bash_profile file
+    # echo "[[ -s /etc/archup ]] && cat /etc/archup" >> ~/.bash_profile
+
+5. Put the following alias to update the system in .bashrc file
+    # echo "alias update='pacman -Syu; sudo rm -rf /etc/archup;'" >> ~/.bashrc
+
+USAGE
+-----
+When you log in and see a message that some packages need update then update the
+system with the provided alias:
+  # ssh padi@goflex.dtdns.net
+  padi@goflex.dtdns.net's password: 
+  Warning: No xauth data; using fake authentication data for X11 forwarding.
+  X11 forwarding request failed on channel 0
+  Last login: Thu Aug 24 12:08:10 2017 from 129.192.10.2
+  Following packages need update
+  gnutls 3.5.14-1 -> 3.5.15-1
+  icu 59.1-1 -> 59.1-2
+  lz4 1:1.7.5-1 -> 1:1.8.0-1
+  vim 8.0.0851-1 -> 8.0.0987-1
+  vim-runtime 8.0.0851-1 -> 8.0.0987-1
+  #
+  # update
+  [sudo] password for padi: 
+  :: Synchronizing package databases...
+  core                    185.2 KiB   231K/s 00:01 [######################] 100%
+  extra is up to date
+  community is up to date
+  alarm is up to date     0.0   B  0.00B/s 00:00 [------------------------]   0%
+  aur is up to date       0.0   B  0.00B/s 00:00 [------------------------]   0%
+  :: Starting full system upgrade...
+  there is nothing to do 
+
+CONTACTS
+--------
+If you have problems, questions, ideas or suggestions, please contact me at:
+panosdim@gmail.com
+
+COPYING
+-------
+Copyright (c) 2017 Panagiotis Dimopoulos
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
