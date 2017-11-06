@@ -1,0 +1,270 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"SM",
+				"sm_file"
+			],
+			[
+				"sm",
+				"sm_file"
+			],
+			[
+				"b",
+				"batName"
+			]
+		]
+	},
+	"build_system": "sm (Linux)",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"sm (Linux)",
+					""
+				],
+				[
+					"sm (Linux)",
+					"clean"
+				],
+				[
+					"sm (Linux)",
+					"rebuild_cache"
+				],
+				[
+					"sm (Linux)",
+					"hello"
+				]
+			],
+			[
+				"sm (Linux)",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "i",
+		"selected_items":
+		[
+			[
+				"i",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: List Packages"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"clang",
+				"Clang Format: Format Selection"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Preferences: Package Control Settings – Default"
+			]
+		],
+		"width": 461.0
+	},
+	"console":
+	{
+		"height": 315.0,
+		"history":
+		[
+			"ping http://tpc-proxy.ac.de.eu.ericsson.se:8880",
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler({\"http\":\"http://137.58.122.95:8880/\"})) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) ",
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler({\"http\":\"http://tpc-proxy.ac.de.eu.ericsson.se:8880/\"})) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) ",
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) "
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/xigpadi/.config/sublime-text-3/Packages/ShellScriptImproved/README.md",
+		"/home/xigpadi/motd",
+		"/home/xigpadi/updates",
+		"/home/xigpadi/Tools/archup/archup.timer",
+		"/home/xigpadi/Tools/archup/archup.service",
+		"/home/xigpadi/Tools/archup/LICENSE",
+		"/home/xigpadi/complete.csh",
+		"/home/xigpadi/.cshrc.user",
+		"/home/xigpadi/Tools/Scripts/MergePVs.sh",
+		"/home/xigpadi/Tools/Scripts/merge",
+		"/home/xigpadi/completions/7z.fish",
+		"/home/xigpadi/completions/ls.fish",
+		"/home/xigpadi/Tools/opass.py",
+		"/home/xigpadi/Tools/recinstall/recinstall",
+		"/home/xigpadi/Tools/cshmarks/README.md",
+		"/home/xigpadi/deroff.py",
+		"/home/xigpadi/create_manpage_completions.py",
+		"/home/xigpadi/opt/sublime_text/Serial",
+		"/home/xigpadi/Tools/sm/src/CMakeLists.txt",
+		"/home/xigpadi/Tools/sm/CMakeLists.txt",
+		"/home/xigpadi/.config/sublime-text-3/Packages/User/SublimeLinter.sublime-settings",
+		"/home/xigpadi/ftp/priv/include-what-you-use/README.md",
+		"/home/xigpadi/Tools/mdv/src/display.c",
+		"/home/xigpadi/CLionProjects/mdv/mdv.sublime-project",
+		"/home/xigpadi/CLionProjects/mdv/CMakeLists.txt",
+		"/home/xigpadi/Tools/BatteryStamina/mainwindow.cpp",
+		"/home/xigpadi/opt/www/movies/LICENSE.md",
+		"/home/xigpadi/opt/www/movies/bower_components/javascript-auto-complete/bower.json",
+		"/home/xigpadi/opt/perl5/.modulebuildrc",
+		"/home/xigpadi/.config/sublime-text-3/Packages/ShellScriptImproved/miscellaneous/demo.sh",
+		"/home/xigpadi/.local/share/applications/gvim.desktop",
+		"/home/xigpadi/Tools/cshmarks/goto",
+		"/home/xigpadi/Tools/cshmarks/list",
+		"/home/xigpadi/opt/sublime_text/changelog.txt",
+		"/home/xigpadi/.bashrc.alias",
+		"/home/xigpadi/.config/sublime-text-3/Packages/User/Package Control.sublime-settings",
+		"/home/xigpadi/.config/sublime-text-3/Packages/Package Control/Package Control.sublime-settings"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 98.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"checkupdates",
+			"upfile",
+			"\\t",
+			"sm_file",
+			"todo"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"updsfile",
+			"upfile",
+			"|",
+			"smfile"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 137.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "sm (Linux)",
+	"replace":
+	{
+		"height": 68.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 161.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

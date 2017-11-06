@@ -1,8 +1,90 @@
-#!/bin/bash
+#!/bin/sh
+# ---------------------------------------------------------------------------
+# archup.sh -- Check and install updates in Arch Linux
+#
+# Copyright 2017 Panagiotis Dimopoulos (panosdim@gmail.com)
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License at (http://www.gnu.org/licenses/) for
+# more details.
+#
+# Version: 1.0
+# ---------------------------------------------------------------------------
 
-upfile=/etc/archup
-checkupdates > $upfile
-if [ -s $upfile ]; then
-  echo -e "Following packages need update\n$(cat $upfile)" > $upfile
+# Function that printout the correct usage of the script
+usage()
+{
+cat << EOF
+
+Usage: $0 [-c | -u | -h]
+
+Without argument shows the available updates.
+
+OPTIONS:
+ -h      Show this message
+ -c      Check for new available updates
+ -u      Update the system
+
+EOF
+}
+
+updsfile=/tmp/updates
+motdfile=/etc/motd
+tmpfile=$(mktemp)
+
+# Without any argument just printout the contents of updsfile
+if [ $# -eq 0 ]; then
+    if [ -s $updsfile ]; then
+        cat $updsfile
+        exit
+    else
+        echo "No packages need update."
+    fi
 fi
+
+# Check input parameters and options
+while getopts "hcu" optname; do
+    case "$optname" in
+    "h")
+        usage
+        exit
+        ;;
+    "c")
+        checkupdates > $updsfile
+        if [ -s $updsfile ]; then
+            printf "Following packages need update\n" > "$tmpfile"
+            if [ "$(id -u)" != "0" ]; then
+                sudo sh -c 'cat $updsfile >> "$tmpfile" &&
+                    cp -f "$tmpfile" $motdfile'
+            else
+                cat $updsfile >> "$tmpfile" && cp -f "$tmpfile" $motdfile
+            fi
+        fi
+        ;;
+    "u")
+        if [ "$(id -u)" != "0" ]; then
+            sudo sh -c 'pacman -Syu
+                && grep -v -f $updsfile "$motdfile" > "$tmpfile"
+                && cp -f "$tmpfile" $motdfile'
+        else
+            pacman -Syu && grep -v -f $updsfile "$motdfile" > "$tmpfile" \
+            && cp -f "$tmpfile" $motdfile
+        fi
+        ;;
+    "?")
+        usage
+        exit
+        ;;
+    esac
+done
+
+rm -rf "$tmpfile"
+
 
