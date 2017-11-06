@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"tmp",
+				"tmpfile"
+			],
+			[
+				"motd",
+				"motdfile"
+			],
+			[
 				"SM",
 				"sm_file"
 			],
@@ -105,6 +113,12 @@
 	},
 	"file_history":
 	[
+		"/home/xigpadi/Tools/ASEG/gen_lsv.sh",
+		"/home/xigpadi/Tools/Scripts/upload-cfg.sh",
+		"/home/xigpadi/Tools/Scripts/ssh-dot-files.sh",
+		"/home/xigpadi/Tools/Scripts/lavgen.sh",
+		"/home/xigpadi/Tools/Scripts/MergePVs.sh",
+		"/home/xigpadi/Tools/Scripts/function_change.sh",
 		"/home/xigpadi/.config/sublime-text-3/Packages/ShellScriptImproved/README.md",
 		"/home/xigpadi/motd",
 		"/home/xigpadi/updates",
@@ -113,7 +127,6 @@
 		"/home/xigpadi/Tools/archup/LICENSE",
 		"/home/xigpadi/complete.csh",
 		"/home/xigpadi/.cshrc.user",
-		"/home/xigpadi/Tools/Scripts/MergePVs.sh",
 		"/home/xigpadi/Tools/Scripts/merge",
 		"/home/xigpadi/completions/7z.fish",
 		"/home/xigpadi/completions/ls.fish",
@@ -145,7 +158,7 @@
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 38.0
 	},
 	"find_in_files":
 	{
@@ -160,6 +173,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"tmpfile",
 			"checkupdates",
 			"upfile",
 			"\\t",

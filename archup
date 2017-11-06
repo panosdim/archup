@@ -61,8 +61,8 @@ while getopts "hcu" optname; do
         if [ -s $updsfile ]; then
             printf "Following packages need update\n" > "$tmpfile"
             if [ "$(id -u)" != "0" ]; then
-                sudo sh -c 'cat $updsfile >> "$tmpfile" &&
-                    cp -f "$tmpfile" $motdfile'
+                sudo sh -c "cat $updsfile >> \"$tmpfile\" &&
+                    cp -f \"$tmpfile\" $motdfile"
             else
                 cat $updsfile >> "$tmpfile" && cp -f "$tmpfile" $motdfile
             fi
@@ -70,9 +70,9 @@ while getopts "hcu" optname; do
         ;;
     "u")
         if [ "$(id -u)" != "0" ]; then
-            sudo sh -c 'pacman -Syu
-                && grep -v -f $updsfile "$motdfile" > "$tmpfile"
-                && cp -f "$tmpfile" $motdfile'
+            sudo sh -c "pacman -Syu
+                && grep -v -f $updsfile \"$motdfile\" > \"$tmpfile\"
+                && cp -f \"$tmpfile\" $motdfile"
         else
             pacman -Syu && grep -v -f $updsfile "$motdfile" > "$tmpfile" \
             && cp -f "$tmpfile" $motdfile
