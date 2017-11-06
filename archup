@@ -38,6 +38,7 @@ EOF
 updsfile=/tmp/updates
 motdfile=/etc/motd
 tmpfile=$(mktemp)
+chkupfile=$(mktemp)
 
 # Without any argument just printout the contents of updsfile
 if [ $# -eq 0 ]; then
@@ -57,15 +58,25 @@ while getopts "hcu" optname; do
         exit
         ;;
     "c")
-        checkupdates > $updsfile
-        if [ -s $updsfile ]; then
-            printf "Following packages need update\n" > "$tmpfile"
+        checkupdates > "$chkupfile"
+        if [ -s "$chkupfile" ]; then
+            # Restore motd file
+            grep -v -f $updsfile "$motdfile" > "$tmpfile" \
+                && cp -f "$tmpfile" $motdfile
+
+            # Add new packages that need update to motd
+            echo "Following packages need update" \
+                | cat - "$chkupfile" > $updsfile
             if [ "$(id -u)" != "0" ]; then
-                sudo sh -c "cat $updsfile >> \"$tmpfile\" &&
-                    cp -f \"$tmpfile\" $motdfile"
+                sudo sh -c "cat $updsfile >> $motdfile"
             else
-                cat $updsfile >> "$tmpfile" && cp -f "$tmpfile" $motdfile
+                cat $updsfile >> $motdfile
             fi
+
+            cat $updsfile
+            exit
+        else
+            echo "No packages need update."
         fi
         ;;
     "u")
@@ -75,7 +86,7 @@ while getopts "hcu" optname; do
                 && cp -f \"$tmpfile\" $motdfile"
         else
             pacman -Syu && grep -v -f $updsfile "$motdfile" > "$tmpfile" \
-            && cp -f "$tmpfile" $motdfile
+                && cp -f "$tmpfile" $motdfile
         fi
         ;;
     "?")
