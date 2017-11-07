@@ -35,7 +35,7 @@ OPTIONS:
 EOF
 }
 
-updsfile=/tmp/updates
+updsfile=/var/opt/archupdates
 motdfile=/etc/motd
 tmpfile=$(mktemp)
 chkupfile=$(mktemp)
@@ -58,13 +58,17 @@ while getopts "hcu" optname; do
         exit
         ;;
     "c")
+        echo "Checking for new updates..."
         checkupdates > "$chkupfile"
         if [ -s "$chkupfile" ]; then
             # Check if chkupfile and updsfile are identical
             echo "Following packages need update" \
                 | cat - "$chkupfile" > "$tmpfile" \
                 && cp -f "$tmpfile" "$chkupfile"
-            cmp --silent "$chkupfile" "$updsfile" && cat "$updsfile"; exit
+            if cmp -s "$chkupfile" "$updsfile"; then
+                cat "$updsfile"
+                exit
+            fi
 
             # Restore motd file
             if [ "$(id -u)" != "0" ]; then
@@ -91,12 +95,14 @@ while getopts "hcu" optname; do
         ;;
     "u")
         if [ "$(id -u)" != "0" ]; then
-            sudo sh -c "pacman -Syu \
-                && grep -v -f $updsfile \"$motdfile\" > \"$tmpfile\" \
-                && cp -f \"$tmpfile\" $motdfile"
+            sudo sh -c "pacman -Syu; \
+                grep -v -f $updsfile \"$motdfile\" > \"$tmpfile\"; \
+                cp -f \"$tmpfile\" $motdfile"
         else
-            pacman -Syu && grep -v -f "$updsfile" "$motdfile" > "$tmpfile" \
-                && cp -f "$tmpfile" "$motdfile"
+            pacman -Syu
+            grep -v -f "$updsfile" "$motdfile" > "$tmpfile"
+            cp -f "$tmpfile" "$motdfile"
+            true > "$updsfile"
         fi
         ;;
     "?")
