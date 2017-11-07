@@ -34,3 +34,4 @@ cp archup.service /usr/lib/systemd/system
 cp archup.timer /usr/lib/systemd/system
 systemctl start archup.timer
 systemctl enable archup.timer
+touch /var/opt/archupdates

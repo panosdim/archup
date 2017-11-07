@@ -3,3 +3,6 @@ Description=Script to check for available package updates
 
 [Service]
 ExecStart=/usr/bin/archup -c
+
+[Install]
+WantedBy=multi-user.target
