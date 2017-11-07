@@ -2,4 +2,4 @@
 Description=Script to check for available package updates
 
 [Service]
-ExecStart=/usr/bin/archup
+ExecStart=/usr/bin/archup -c

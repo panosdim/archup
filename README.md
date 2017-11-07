@@ -8,7 +8,7 @@
 ##     ## ##     ##  ######  ##     ##  #######  ##        
 ```
 
-#ArchUp
+# ArchUp
 This utility let you know for package updates when you log in. In order to
 achieve that, it is using the checkupdates script that comes installed with pacman
 package. It writes the result of checkupdates script to `/etc/motd` file. When the
@@ -21,17 +21,17 @@ The user then must update the system using `archup -u`, otherwise the contents o
 file are not cleared and he must wait until the next trigger of archup utility 
 (default is every 1 hour) in order the `/etc/motd` file to be cleared.
 
-##Requirements
+## Requirements
 In order for this utility to work you need and Arch Linux with systemd, bash and
 pacman installed.
 
-##Installation
+## Installation
 Run the install script as root
 ```
 # ./install
 ```
 
-##Usage
+## Usage
 When you log in and see a message that some packages need update then update the
 system with the `archup -u` command:
 ```
@@ -59,6 +59,6 @@ system with the `archup -u` command:
   there is nothing to do 
 ```
 
-##Contacts
+## Contacts
 If you have problems, questions, ideas or suggestions, please contact me at:
 Panagiotis Dimopoulos panosdim@gmail.com
