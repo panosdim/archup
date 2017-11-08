@@ -96,8 +96,9 @@ while getopts "hcu" optname; do
     "u")
         if [ "$(id -u)" != "0" ]; then
             sudo sh -c "pacman -Syu; \
-                grep -v -f $updsfile \"$motdfile\" > \"$tmpfile\"; \
-                cp -f \"$tmpfile\" $motdfile"
+                grep -v -f \"$updsfile\" \"$motdfile\" > \"$tmpfile\"; \
+                cp -f \"$tmpfile\" \"$motdfile\"; \
+                true > \"$updsfile\""
         else
             pacman -Syu
             grep -v -f "$updsfile" "$motdfile" > "$tmpfile"

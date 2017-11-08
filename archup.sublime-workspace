@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"up",
+				"updsfile"
+			],
+			[
 				"tmp",
 				"tmpfile"
 			],
@@ -113,6 +117,7 @@
 	},
 	"file_history":
 	[
+		"/home/xigpadi/updates",
 		"/home/xigpadi/Tools/ASEG/gen_lsv.sh",
 		"/home/xigpadi/Tools/Scripts/upload-cfg.sh",
 		"/home/xigpadi/Tools/Scripts/ssh-dot-files.sh",
@@ -121,7 +126,6 @@
 		"/home/xigpadi/Tools/Scripts/function_change.sh",
 		"/home/xigpadi/.config/sublime-text-3/Packages/ShellScriptImproved/README.md",
 		"/home/xigpadi/motd",
-		"/home/xigpadi/updates",
 		"/home/xigpadi/Tools/archup/archup.timer",
 		"/home/xigpadi/Tools/archup/archup.service",
 		"/home/xigpadi/Tools/archup/LICENSE",
