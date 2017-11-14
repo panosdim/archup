@@ -72,11 +72,12 @@ while getopts "hcu" optname; do
 
             # Restore motd file
             if [ "$(id -u)" != "0" ]; then
-                sudo sh -c "grep -v -f $updsfile \"$motdfile\" > \"$tmpfile\" \
-                    && cp -f \"$tmpfile\" $motdfile"
+                sudo sh -c \
+                    "grep -v -f \"$updsfile\" \"$motdfile\" > \"$tmpfile\"; \
+                    cp -f \"$tmpfile\" \"$motdfile\""
             else
-                grep -v -f "$updsfile" "$motdfile" > "$tmpfile" \
-                    && cp -f "$tmpfile" "$motdfile"
+                grep -v -f "$updsfile" "$motdfile" > "$tmpfile"
+                cp -f "$tmpfile" "$motdfile"
             fi
 
             # Add new packages that need update to motd
