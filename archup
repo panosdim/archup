@@ -62,9 +62,10 @@ while getopts "hcu" optname; do
         checkupdates > "$chkupfile"
         if [ -s "$chkupfile" ]; then
             # Check if chkupfile and updsfile are identical
-            echo "Following packages need update" \
+            printf "\nFollowing packages need update\n" \
                 | cat - "$chkupfile" > "$tmpfile" \
                 && cp -f "$tmpfile" "$chkupfile"
+            echo "" >> "$chkupfile"
             if cmp -s "$chkupfile" "$updsfile"; then
                 cat "$updsfile"
                 exit
@@ -72,6 +73,7 @@ while getopts "hcu" optname; do
 
             # Restore motd file
             if [ "$(id -u)" != "0" ]; then
+                #diff --unchanged-line-format="" --old-line-format="%L" --new-line-format="%L" motd chkupds
                 sudo sh -c \
                     "grep -v -f \"$updsfile\" \"$motdfile\" > \"$tmpfile\"; \
                     cp -f \"$tmpfile\" \"$motdfile\""
@@ -81,10 +83,11 @@ while getopts "hcu" optname; do
             fi
 
             # Add new packages that need update to motd
-            cat "$chkupfile" > "$updsfile"
             if [ "$(id -u)" != "0" ]; then
-                sudo sh -c "cat $updsfile >> $motdfile"
+                sudo sh -c "cat \"$chkupfile\" > \"$updsfile\""
+                sudo sh -c "cat \"$updsfile\" >> \"$motdfile\""
             else
+                cat "$chkupfile" > "$updsfile"
                 cat "$updsfile" >> "$motdfile"
             fi
 
