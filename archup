@@ -15,7 +15,7 @@
 # GNU General Public License at (http://www.gnu.org/licenses/) for
 # more details.
 #
-# Version: 1.0
+# Version: 2.0
 # ---------------------------------------------------------------------------
 
 # Function that printout the correct usage of the script
@@ -37,8 +37,6 @@ EOF
 
 updsfile=/var/opt/archupdates
 motdfile=/etc/motd
-tmpfile=$(mktemp)
-chkupfile=$(mktemp)
 
 # Without any argument just printout the contents of updsfile
 if [ $# -eq 0 ]; then
@@ -58,6 +56,9 @@ while getopts "hcu" optname; do
         exit
         ;;
     "c")
+    	tmpfile=$(mktemp)
+        chkupfile=$(mktemp)
+
         echo "Checking for new updates..."
         checkupdates > "$chkupfile"
         if [ -s "$chkupfile" ]; then
@@ -68,28 +69,29 @@ while getopts "hcu" optname; do
             echo "" >> "$chkupfile"
             if cmp -s "$chkupfile" "$updsfile"; then
                 cat "$updsfile"
+                # Remove temporary files
+                rm -rf "$tmpfile"
+                rm -rf "$chkupfile"
                 exit
             fi
-
+			
+			if [ "$EUID" -ne 0 ]; then
+				rm -rf "$tmpfile"
+				rm -rf "$chkupfile"
+				exec sudo bash "$0" "$@"
+			fi
+			     	
             # Restore motd file
-            if [ "$(id -u)" != "0" ]; then
-                #diff --unchanged-line-format="" --old-line-format="%L" --new-line-format="%L" motd chkupds
-                sudo sh -c \
-                    "grep -v -f \"$updsfile\" \"$motdfile\" > \"$tmpfile\"; \
-                    cp -f \"$tmpfile\" \"$motdfile\""
-            else
-                grep -v -f "$updsfile" "$motdfile" > "$tmpfile"
-                cp -f "$tmpfile" "$motdfile"
-            fi
+            grep -v -f "$updsfile" "$motdfile" > "$tmpfile"
+            cp -f "$tmpfile" "$motdfile"
 
-            # Add new packages that need update to motd
-            if [ "$(id -u)" != "0" ]; then
-                sudo sh -c "cat \"$chkupfile\" > \"$updsfile\""
-                sudo sh -c "cat \"$updsfile\" >> \"$motdfile\""
-            else
-                cat "$chkupfile" > "$updsfile"
-                cat "$updsfile" >> "$motdfile"
-            fi
+			# Add new packages that need update to motd
+            cat "$chkupfile" > "$updsfile"
+            cat "$updsfile" >> "$motdfile"
+
+            # Remove temporary files
+            rm -rf "$tmpfile"
+            rm -rf "$chkupfile"
 
             cat "$updsfile"
             exit
@@ -98,17 +100,16 @@ while getopts "hcu" optname; do
         fi
         ;;
     "u")
-        if [ "$(id -u)" != "0" ]; then
-            sudo sh -c "pacman -Syu; \
-                grep -v -f \"$updsfile\" \"$motdfile\" > \"$tmpfile\"; \
-                cp -f \"$tmpfile\" \"$motdfile\"; \
-                true > \"$updsfile\""
-        else
-            pacman -Syu
-            grep -v -f "$updsfile" "$motdfile" > "$tmpfile"
-            cp -f "$tmpfile" "$motdfile"
-            true > "$updsfile"
-        fi
+ 		if [ "$EUID" -ne 0 ]; then
+ 			exec sudo bash "$0" "$@"
+ 		fi 	   
+    	tmpfile=$(mktemp)
+        pacman --noconfirm -Syu
+        grep -v -f "$updsfile" "$motdfile" > "$tmpfile"
+        cp -f "$tmpfile" "$motdfile"
+        true > "$updsfile"
+        # Remove temporary files
+        rm -rf "$tmpfile"
         ;;
     "?")
         usage
@@ -116,8 +117,3 @@ while getopts "hcu" optname; do
         ;;
     esac
 done
-
-rm -rf "$tmpfile"
-rm -rf "$chkupfile"
-
-
